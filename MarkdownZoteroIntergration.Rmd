@@ -1,0 +1,81 @@
+---
+title: "Markdown for Article Writing"
+author: "Shan"
+date: "`r Sys.Date()`"
+
+output:
+  html_document:
+    code_folding: hide    
+    code_download: false
+
+knitr:
+  echo:    FALSE
+  warning: FALSE
+  message: FALSE
+  fig.width:  15
+  fig.height: 6
+
+editor: visual
+
+bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Writing articles in R Studio with integrated Reference Manager (Zotero)
+
+I initially adopted Markdown as a note-taking tool because it allowed me to seamlessly integrate text and code without switching between applications. Over time, I transitioned to Quarto Markdown for more advanced coding workflows, where I could embed explanatory notes directly alongside my code—keeping documentation clean without excessive \### headers.
+
+Markdown’s flexibility also enables reproducible research, allowing me to share both scripts and results in multiple formats (HTML, PDF, Word). By saving HTML files as MHTML, I can distribute a single self-contained file with interactive visualizations, making collaboration more efficient. Additionally, RStudio’s built-in Git GUI simplifies version control and backups, ensuring project integrity.
+
+For reference management, I use Zotero—a powerful open-source tool that eliminates paywalls and proprietary restrictions while offering robust citation features. Its seamless integration with RStudio (via plugins like Better BibTeX) streamlines bibliography management for academic writing.
+
+In this guide, I’ll demonstrate how to write articles in RStudio using Markdown while efficiently managing citations with Zotero for a streamlined research workflow.
+
+## Installing R Studio, Zotero and plugins.
+
+[Install R Studio](https://posit.co/download/rstudio-desktop/) [Install Zotero](https://www.zotero.org/)
+
+Zotero offers a wide veriety of plugins to increase ease of use. We will be using Better Bibtex plugin to format citations. Download it from [here](https://github.com/retorquere/zotero-better-bibtex/releases/tag/v7.0.26). Install the file in Zotero by Tools -\> Plugins -\> Click the gear icon -\> Select Install Plugin from file.
+
+Once it's installed restart Zotero and Goto Edit -\> Settings -\> Better Bibtex. In the Better Bibtex window edit 'Citation Key Formula as:
+
+```         
+[auth.etal:lower:replace=.,_:postfix=_][>0][year]|[veryshorttitle][year]
+```
+
+Now on R Studio create a new markdown file and edit YAML (the markdown heading as below)
+
+```         
+title: "Article Title"
+author: "Author Name"
+date: "`r Sys.Date()`"
+
+output:
+  html_document:
+    code_folding: hide    
+    code_download: false
+
+knitr:
+  echo:    FALSE
+  warning: FALSE
+  message: FALSE
+  fig.width:  15
+  fig.height: 6
+
+editor: visual
+
+bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`"
+```
+
+Now we need to connect R Studio With Zotero, which is done by the `RBBT` package. Install the package by
+
+```         
+remotes::install_github("paleolimbot/rbbt")
+```
+
+The rbbt is added to the `Addins` menu of R Studio ( below the menu bar). Clicking and inserting the this menu to add each citation is difficult so, we will add a shortcut key to open Zotero connection. TO add a shortcut key, Goto the `Tools` menu and select `Modify keyboard shortcuts` from the dorpdown menu. In the window, search for Zotero and Choose a preferred shortcut for `Insert Zotero Citation`. I use  `Ctrl+l`.
+
+Once it all set up, you can add citations by pressing `your shortcut key` and select references. i put together this workflow by refering a few blogposts by some incredibale people who share their `knowhows` with the world. I have cited them using the method above: @Verhoeven; @Riojacir6; @zotero-item-4913. Now I don't have to worry about adding the reference to the end. The R automatically does it by creating a `.josn` file with all the references in this manuscript.
