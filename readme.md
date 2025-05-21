@@ -1,27 +1,4 @@
----
-title: "Markdown for Article Writing"
-author: "Shan"
-date: "`r Sys.Date()`"
 
-output:
-  html_document:
-    code_folding: hide    
-    code_download: false
-
-knitr:
-  echo:    FALSE
-  warning: FALSE
-  message: FALSE
-  fig.width:  15
-  fig.height: 6
-
-editor: visual
-
-bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`"
----
-
-
----
 
 # 📄 Writing Articles in RStudio with Zotero Integration
 
