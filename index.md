@@ -2,7 +2,17 @@
 
 # 📄 Writing Articles in RStudio with Zotero Integration
 
-Leverage the power of **Markdown** and **Zotero** to create reproducible, well-cited academic documents—all within **RStudio**.
+What started as a simple way to take notes quickly evolved into a complete writing workflow.
+
+I first turned to Markdown because it let me combine text and code in one place—no need to jump between apps. As my projects grew more complex, I switched to Quarto Markdown, which allowed me to keep clean, readable documentation with embedded code and commentary—without cluttering the page with endless #Comments.
+
+But the real power of Markdown lies in its flexibility: it supports fully reproducible research. I can publish my scripts and results as HTML, PDF, or Word files. Even better, exporting to MHTML gives me a single, shareable file with interactive plots—perfect for collaboration. With version control baked into RStudio’s Git GUI, I can track changes and back up my work effortlessly.
+
+Managing references used to be the most frustrating part of academic writing—until I discovered Zotero. It’s open-source, powerful, and integrates smoothly with RStudio using the Better BibTeX plugin. No more copy-pasting citations or dealing with proprietary reference managers.
+
+In this post, I’ll walk you through how to combine Markdown, RStudio, and Zotero to build a writing workflow that’s simple, powerful, and reproducible—from your first sentence to your final bibliography.
+
+
 
 ---
 
