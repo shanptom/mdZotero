@@ -20,35 +20,87 @@ editor: visual
 bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+---
+
+# 📄 Writing Articles in RStudio with Zotero Integration
+
+Leverage the power of **Markdown** and **Zotero** to create reproducible, well-cited academic documents—all within **RStudio**.
+
+---
+
+## 🧠 Why This Workflow?
+
+* **Markdown** allows embedding code and text seamlessly.
+* **Reproducible research**: Export to HTML, PDF, or Word.
+* **Interactive visualizations** via self-contained `.mhtml` files.
+* **Built-in Git GUI** in RStudio ensures version control.
+* **Zotero** manages references without paywalls or vendor lock-in.
+
+---
+
+## 🔧 Step 1: Install Required Tools
+
+* [📥 Install RStudio](https://posit.co/download/rstudio-desktop/)
+* [📥 Install Zotero](https://www.zotero.org/)
+
+---
+
+## 🔌 Step 2: Enhance Zotero with Better BibTeX
+
+### ➕ Install Better BibTeX Plugin
+
+1. **Download Plugin**:
+   [Better BibTeX v7.0.26 Release](https://github.com/retorquere/zotero-better-bibtex/releases/tag/v7.0.26)
+
+2. **Install in Zotero**:
+
+   * Go to `Tools → Plugins → ⚙️ Gear Icon → Install Add-on From File`
+   * Select the downloaded `.xpi` file
+   * Restart Zotero
+
+---
+
+### ⚙️ Configure Better BibTeX
+
+1. **Open Settings**:
+   `Edit → Preferences → Better BibTeX`
+
+2. **Set Citation Key Formula**:
+
+   ```plaintext
+   [auth.etal:lower:replace=.,_:postfix=_][>0][year]|[veryshorttitle][year]
+   ```
+
+---
+
+## 🔄 Step 3: Connect Zotero with RStudio
+
+### 📦 Install `rbbt` R Package
+
+```r
+# Install rbbt from GitHub
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("paleolimbot/rbbt")
 ```
 
-# Writing articles in R Studio with integrated Reference Manager (Zotero)
+---
 
-I initially adopted Markdown as a note-taking tool because it allowed me to seamlessly integrate text and code without switching between applications. Over time, I transitioned to Quarto Markdown for more advanced coding workflows, where I could embed explanatory notes directly alongside my code—keeping documentation clean without excessive \### headers.
+### ⌨️ Add Keyboard Shortcut
 
-Markdown’s flexibility also enables reproducible research, allowing me to share both scripts and results in multiple formats (HTML, PDF, Word). By saving HTML files as MHTML, I can distribute a single self-contained file with interactive visualizations, making collaboration more efficient. Additionally, RStudio’s built-in Git GUI simplifies version control and backups, ensuring project integrity.
+1. Go to `Tools → Modify Keyboard Shortcuts...`
+2. Search: `"Zotero"`
+3. Locate: **Insert Zotero Citation**
+4. Assign shortcut (e.g., `Ctrl + L` or `Cmd + L`)
+5. Click **Apply**
 
-For reference management, I use Zotero—a powerful open-source tool that eliminates paywalls and proprietary restrictions while offering robust citation features. Its seamless integration with RStudio (via plugins like Better BibTeX) streamlines bibliography management for academic writing.
+---
 
-In this guide, I’ll demonstrate how to write articles in RStudio using Markdown while efficiently managing citations with Zotero for a streamlined research workflow.
+## 📝 Step 4: Create Your Quarto Markdown Template
 
-## Installing R Studio, Zotero and plugins.
+### Example YAML Header:
 
-[Install R Studio](https://posit.co/download/rstudio-desktop/) [Install Zotero](https://www.zotero.org/)
-
-Zotero offers a wide veriety of plugins to increase ease of use. We will be using Better Bibtex plugin to format citations. Download it from [here](https://github.com/retorquere/zotero-better-bibtex/releases/tag/v7.0.26). Install the file in Zotero by Tools -\> Plugins -\> Click the gear icon -\> Select Install Plugin from file.
-
-Once it's installed restart Zotero and Goto Edit -\> Settings -\> Better Bibtex. In the Better Bibtex window edit 'Citation Key Formula as:
-
-```         
-[auth.etal:lower:replace=.,_:postfix=_][>0][year]|[veryshorttitle][year]
-```
-
-Now on R Studio create a new markdown file and edit YAML (the markdown heading as below)
-
-```         
+```yaml
 title: "Article Title"
 author: "Author Name"
 date: "`r Sys.Date()`"
@@ -59,10 +111,10 @@ output:
     code_download: false
 
 knitr:
-  echo:    FALSE
-  warning: FALSE
-  message: FALSE
-  fig.width:  15
+  echo: false
+  warning: false
+  message: false
+  fig.width: 15
   fig.height: 6
 
 editor: visual
@@ -70,12 +122,48 @@ editor: visual
 bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`"
 ```
 
-Now we need to connect R Studio With Zotero, which is done by the `RBBT` package. Install the package by
+---
 
-```         
-remotes::install_github("paleolimbot/rbbt")
-```
+## 🔁 Step 5: Cite As You Write
 
-The rbbt is added to the `Addins` menu of R Studio ( below the menu bar). Clicking and inserting the this menu to add each citation is difficult so, we will add a shortcut key to open Zotero connection. TO add a shortcut key, Goto the `Tools` menu and select `Modify keyboard shortcuts` from the dorpdown menu. In the window, search for Zotero and Choose a preferred shortcut for `Insert Zotero Citation`. I use  `Ctrl+l`.
+* Press your shortcut (e.g., `Ctrl+L`)
+* Search and insert Zotero references
+* Let RStudio handle:
 
-Once it all set up, you can add citations by pressing `your shortcut key` and select references. i put together this workflow by refering a few blogposts by some incredibale people who share their `knowhows` with the world. I have cited them using the method above: @Verhoeven; @Riojacir6; @zotero-item-4913. Now I don't have to worry about adding the reference to the end. The R automatically does it by creating a `.josn` file with all the references in this manuscript.
+  * In-text citations
+  * Bibliography generation
+  * `.json` citation file
+
+---
+
+## 🧩 Behind the Scenes
+
+1. First citation:
+
+   * Creates `bibliography.json`
+   * Adds formatted bibliography section
+
+2. Later citations:
+
+   * Automatically appended
+   * Deduplicated
+
+3. Final output:
+
+   * References in APA, Chicago, etc.
+   * Fully reproducible and clean document
+
+---
+
+## 🙏 Acknowledgments
+
+
+Inspired by community contributions from:
+
+* @Verhoeven
+* @Rioja
+* @Dunnington
+
+---
+
+## 📚 References
